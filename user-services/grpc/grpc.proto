@@ -1,0 +1,15 @@
+syntax = "proto3";
+option java_multiple_files = true;
+option java_package = "io.grpc.examples.simple-grpc";
+option java_outer_classname = "simple-grpc";
+
+package user;
+
+service Greeter {
+  // Sends a greeting
+  rpc Ping(Hello) returns (Hello){}
+}
+
+message Hello{
+  string greeting = 1;
+}
