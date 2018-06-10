@@ -1,6 +1,7 @@
 {
     "webserver": {
-        "port": "9000"
+        "port": "9000",
+        "grpcport": "9001"
     },
     "database": {
         "host": "devel-postgre.tkpd",

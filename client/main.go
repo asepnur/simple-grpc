@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	address     = "localhost:9000"
+	address     = "localhost:9001"
 	defaultName = "asepnur"
 )
 
@@ -29,4 +29,9 @@ func main() {
 		log.Println("Err", err)
 	}
 	log.Println(r.Greeting)
+	_, err = c.SelectUserInfo(ctx, &pb.UserInfo{})
+	if err != nil {
+		log.Println("Err", err)
+	}
+
 }

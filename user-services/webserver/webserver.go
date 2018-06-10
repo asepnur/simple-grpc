@@ -15,7 +15,8 @@ import (
 )
 
 type Config struct {
-	Port string
+	Port     string
+	GrpcPort string
 }
 
 type requestLogger struct {
@@ -32,11 +33,18 @@ func Start(cfg Config) {
 		port = ":" + os.Getenv("PORT")
 	}
 
+	grpcPort := ":" + cfg.GrpcPort
+	if len(cfg.GrpcPort) < 1 {
+		grpcPort = ":" + os.Getenv("PORT")
+	}
 	r := httprouter.New()
 	loadRouter(r)
+	go func() {
+		InitGRPC(grpcPort)
+	}()
 
-	InitGRPC(port)
 	http.ListenAndServe(port, requestLogger{Handle: r, Logger: l})
+
 }
 func (rl requestLogger) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	start := time.Now()
