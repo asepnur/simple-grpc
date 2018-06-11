@@ -1,7 +1,7 @@
 package webserver
 
 import (
-	"github.com/asepnur/iskandar/src/webserver/handler"
+	"github.com/asepnur/simple-grpc/user-services/webserver/handler"
 	"github.com/julienschmidt/httprouter"
 )
 

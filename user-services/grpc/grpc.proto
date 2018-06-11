@@ -8,7 +8,7 @@ package user;
 service Greeter {
   // Sends a greeting
   rpc Ping(Hello) returns (Hello){}
-  rpc SelectUserInfo(UserInfo) returns (UserInfo){}
+  rpc SelectUserInfo(UserResponse) returns (UserResponse){}
 }
 
 message Hello{
@@ -21,4 +21,8 @@ message UserInfo {
   string FullName = 3;
   string MSIDN  = 4;
   string CreateTime = 5;
+}
+
+message UserResponse {
+  repeated UserInfo User = 1;
 }

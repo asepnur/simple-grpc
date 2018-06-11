@@ -12,10 +12,10 @@ import (
 
 // User ::
 type User struct {
-	UserID     int
+	UserID     string
 	UserEmail  string
 	FullName   string
-	MSISDN     int
+	MSISDN     string
 	CreateTime time.Time
 }
 

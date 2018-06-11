@@ -10,15 +10,6 @@ import (
 	"github.com/julienschmidt/httprouter"
 )
 
-// User struct :: save value
-type User struct {
-	UserID     int    `json:"id"`
-	UserEmail  string `json:"email"`
-	FullName   string `json:"name"`
-	MSISDN     int    `json:"msisdn"`
-	CreateTime string `json:"create_time"`
-}
-
 var (
 	emptyTime  = "0001-01-01 00:00:00"
 	layoutTime = "2006-01-02 15:04:05"
@@ -49,40 +40,21 @@ func TestingHTML(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 
 // SelectUserHandler ..
 func SelectUserHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
-	var users []us.User
 	var err error
 
 	q := r.FormValue("name")
 	resp := []User{}
-
-	if q != "" {
-		users, err = us.GetMultipleByFilter(q)
-	} else {
-		users, err = us.GetMultipleUser()
+	params := UserParams{
+		Q: q,
 	}
+	resp, code, err := params.SelectUserController()
 	if err != nil {
 		t.RenderJSONResponse(w, new(t.Response).
-			SetCode(http.StatusInternalServerError))
+			SetCode(code))
 		return
 	}
-	for _, el := range users {
-		ct := el.CreateTime.Format(layoutTime)
-		if ct == emptyTime {
-			ct = "-"
-		}
-		resp = append(resp, User{
-			UserID:     el.UserID,
-			UserEmail:  el.UserEmail,
-			FullName:   el.FullName,
-			MSISDN:     el.MSISDN,
-			CreateTime: ct,
-		})
-	}
-	if err != nil {
-		fmt.Println(err)
-	}
 	t.RenderJSONResponse(w, new(t.Response).
-		SetCode(http.StatusOK).
+		SetCode(code).
 		SetData(resp))
 	return
 

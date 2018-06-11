@@ -29,9 +29,14 @@ func main() {
 		log.Println("Err", err)
 	}
 	log.Println(r.Greeting)
-	_, err = c.SelectUserInfo(ctx, &pb.UserInfo{})
+	resp, err := c.SelectUserInfo(ctx, &pb.UserResponse{})
 	if err != nil {
 		log.Println("Err", err)
 	}
-
+	log.Printf("ID\t\tName\t\t Email \t MSISDN\n")
+	for _, val := range resp.User {
+		log.Printf("%v\t%v\t\t %v \t %v",
+			val.ID, val.FullName, val.Email, val.MSIDN,
+		)
+	}
 }

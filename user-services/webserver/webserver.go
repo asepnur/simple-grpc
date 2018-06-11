@@ -14,6 +14,7 @@ import (
 	"google.golang.org/grpc/reflection"
 )
 
+// Config struct
 type Config struct {
 	Port     string
 	GrpcPort string
@@ -24,6 +25,7 @@ type requestLogger struct {
 	Logger *log.Logger
 }
 
+// Start function
 func Start(cfg Config) {
 	log.Println("Initializing web server")
 	l := log.New(os.Stdout, "[iskandar] ", 0)

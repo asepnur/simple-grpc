@@ -8,18 +8,21 @@ import (
 	"strings"
 )
 
+// Response type
 type Response struct {
 	Message string      `json:"message,omitempty"`
 	Error   []string    `json:"error,omitempty"`
 	Code    int         `json:"code"`
-	Data    interface{} `json:"data, omitempty"`
+	Data    interface{} `json:"data,omitempty"`
 }
 
+// SetMessage function
 func (r *Response) SetMessage(msg string) *Response {
 	r.Message = msg
 	return r
 }
 
+// AddError function
 func (r *Response) AddError(msgs ...string) *Response {
 	for _, val := range msgs {
 		r.Error = append(r.Error, val)
@@ -27,11 +30,13 @@ func (r *Response) AddError(msgs ...string) *Response {
 	return r
 }
 
+// SetCode function
 func (r *Response) SetCode(code int) *Response {
 	r.Code = code
 	return r
 }
 
+// SetData function
 func (r *Response) SetData(data interface{}) *Response {
 	r.Data = data
 	return r
